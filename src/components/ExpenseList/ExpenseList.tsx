@@ -1,4 +1,13 @@
-function ExpenseList() {
+interface ExpenseListData {
+  description: string;
+  amount: number;
+  categories: string;
+}
+interface ExpenseListProps {
+  expenses: ExpenseListData[];
+}
+
+function ExpenseList({ expenses }: ExpenseListProps) {
   return (
     <div className="mt-3">
       <select
@@ -17,18 +26,14 @@ function ExpenseList() {
             <th scope="col">Description</th>
             <th scope="col">Amount</th>
             <th scope="col">Category</th>
-            <th scope="col">Category</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>
-              <button className="btn btn-danger">Delete</button>
-            </td>
+            {
+              // loop through all
+            }
           </tr>
         </tbody>
       </table>
