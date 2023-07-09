@@ -1,9 +1,11 @@
-import Hello from "./assets/components/hello/Hello";
-import Form from "./assets/components/Form";
+import Hello from "./components/hello/Hello";
+import Form from "./components/Form";
+import ExpenseList from "./components/ExpenseList";
 function App() {
   return (
     <div className="container">
       <Form />
+      <ExpenseList />
     </div>
   );
 }
