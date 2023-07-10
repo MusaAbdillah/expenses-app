@@ -1,13 +1,15 @@
 interface ExpenseListData {
+  id: number;
   description: string;
   amount: number;
-  categories: string;
+  category: string;
 }
 interface ExpenseListProps {
   expenses: ExpenseListData[];
+  onDelete: (id: number) => void;
 }
 
-function ExpenseList({ expenses }: ExpenseListProps) {
+function ExpenseList({ expenses, onDelete }: ExpenseListProps) {
   return (
     <div className="mt-3">
       <select
@@ -30,11 +32,25 @@ function ExpenseList({ expenses }: ExpenseListProps) {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            {
-              // loop through all
-            }
-          </tr>
+          {
+            // loop through all
+            expenses.map((exp) => (
+              <tr>
+                <th scope="col">{exp.id}</th>
+                <th scope="col">{exp.description}</th>
+                <th scope="col">{exp.amount}</th>
+                <th scope="col">{exp.category}</th>
+                <th scope="col">
+                  <button
+                    className="btn btn-outline-danger"
+                    onClick={() => onDelete(exp.id)}
+                  >
+                    Delete
+                  </button>
+                </th>
+              </tr>
+            ))
+          }
         </tbody>
       </table>
     </div>
