@@ -10,6 +10,24 @@ function App() {
       amount: 0,
       category: "Utilities",
     },
+    {
+      id: 2,
+      description: "Shampoo",
+      amount: 10,
+      category: "Utilities",
+    },
+    {
+      id: 3,
+      description: "Battery",
+      amount: 20,
+      category: "Utilities",
+    },
+    {
+      id: 4,
+      description: "Mouse",
+      amount: 30,
+      category: "Utilities",
+    },
   ]);
 
   const onDelete = (id: number) => {

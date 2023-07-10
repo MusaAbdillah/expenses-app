@@ -10,6 +10,8 @@ interface ExpenseListProps {
 }
 
 function ExpenseList({ expenses, onDelete }: ExpenseListProps) {
+  if (expenses.length === 0) return null;
+
   return (
     <div className="mt-3">
       <select
@@ -21,7 +23,7 @@ function ExpenseList({ expenses, onDelete }: ExpenseListProps) {
         <option value="2">Two</option>
         <option value="3">Three</option>
       </select>
-      <table className="table">
+      <table className="table table-bordered">
         <thead>
           <tr>
             <th scope="col">No</th>
@@ -52,6 +54,16 @@ function ExpenseList({ expenses, onDelete }: ExpenseListProps) {
             ))
           }
         </tbody>
+        <tfoot>
+          <tr>
+            <td>Total</td>
+            <td>
+              ${expenses.reduce((acc, exp) => exp.amount + acc, 0).toFixed(2)}
+            </td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tfoot>
       </table>
     </div>
   );
