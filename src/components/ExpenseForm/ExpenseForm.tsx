@@ -1,6 +1,7 @@
 import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { categories } from "../../App";
 
 const schema = z.object({
   description: z
@@ -66,10 +67,12 @@ const Form = () => {
             Categories
           </label>
           <select className="form-select" aria-label="Default select example">
-            <option selected>Select Categories</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            <option selected>All Categories</option>
+            {categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
           </select>
         </div>
         <button disabled={!isValid} className="btn btn-primary">
