@@ -14,15 +14,6 @@ function ExpenseList({ expenses, onDelete }: ExpenseListProps) {
 
   return (
     <div className="mt-3">
-      <select
-        className="form-select form-select-md"
-        aria-label=".form-select-sm example"
-      >
-        <option selected>Open this select menu</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
       <table className="table table-bordered">
         <thead>
           <tr>

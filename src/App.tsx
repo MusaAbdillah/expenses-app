@@ -1,6 +1,7 @@
 import Form from "./components/Form";
 import { useState } from "react";
 import ExpenseList from "./components/ExpenseList";
+import ExpenseFilter from "./components/ExpenseFilter";
 function App() {
   // Utilities, Groceries, Enterteiments;
   const [expenses, setExpenses] = useState([
@@ -30,16 +31,29 @@ function App() {
     },
   ]);
 
+  const [category, setCategory] = useState("");
+
   const onDelete = (id: number) => {
     console.log("onDelete");
     console.log(id);
     setExpenses(expenses.filter((exp) => exp.id !== id));
   };
 
+  const onSelectCategory = (category: string) => {
+    setCategory(category);
+  };
+
+  const visibleExpenses = category
+    ? expenses.filter((exp) => exp.category === category)
+    : expenses;
+
   return (
     <div className="container">
-      <Form />
-      <ExpenseList expenses={expenses} onDelete={onDelete} />
+      <div className="mb-3">
+        <Form />
+      </div>
+      <ExpenseFilter onSelectCategory={onSelectCategory} />
+      <ExpenseList expenses={visibleExpenses} onDelete={onDelete} />
     </div>
   );
 }
