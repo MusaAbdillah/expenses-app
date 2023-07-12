@@ -4,6 +4,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import categories from "../../categories";
 import errorMap from "zod/lib/locales/en";
 
+interface FormProps {
+  onSubmit: (expense: FormData) => void;
+}
+
 const schema = z.object({
   description: z
     .string()
@@ -12,7 +16,7 @@ const schema = z.object({
     .number({ invalid_type_error: "Amount is required" })
     .min(0.01, { message: "Amount must at least 0" })
     .max(100_000, { message: "Maximum amount 100_000" }),
-  categories: z.enum(categories, {
+  category: z.enum(categories, {
     errorMap: () => ({ message: "Category is required" }),
   }),
 });
@@ -20,7 +24,7 @@ const schema = z.object({
 // alternative structure with zod
 type FormData = z.infer<typeof schema>;
 
-const Form = () => {
+const Form = ({ onSubmit }: FormProps) => {
   const {
     register,
     handleSubmit,
@@ -28,14 +32,14 @@ const Form = () => {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
   console.log(errors);
 
-  const onSubmit = (data: FieldValues) => {
-    console.log("--- data ---");
-    console.log(data);
-  };
+  // const onSubmit = (data: FieldValues) => {
+  //   console.log("--- data ---");
+  //   console.log(data);
+  // };
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={() => onSubmit}>
         <div className="mb-3">
           <label htmlFor="description" className="form-label">
             Description
@@ -67,17 +71,20 @@ const Form = () => {
           )}
         </div>
         <div className="mb-3">
-          <label htmlFor="categories" className="form-label">
+          <label htmlFor="category" className="form-label">
             Categories
           </label>
           <select className="form-select" aria-label="Default select example">
-            <option selected></option>
+            <option value=""></option>
             {categories.map((category) => (
               <option key={category} value={category}>
                 {category}
               </option>
             ))}
           </select>
+          {errors.category && (
+            <p className="text-danger">{errors.category.message}.</p>
+          )}
         </div>
         <button className="btn btn-primary">Submit</button>
       </form>
