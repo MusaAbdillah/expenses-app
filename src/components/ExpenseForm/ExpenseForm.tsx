@@ -1,7 +1,8 @@
 import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { categories } from "../../App";
+import categories from "../../categories";
+import errorMap from "zod/lib/locales/en";
 
 const schema = z.object({
   description: z
@@ -9,8 +10,11 @@ const schema = z.object({
     .min(3, { message: "Description must at least 3 characters" }),
   amount: z
     .number({ invalid_type_error: "Amount is required" })
-    .min(18, { message: "Amount must at least 0" }),
-  categories: z.string(),
+    .min(0.01, { message: "Amount must at least 0" })
+    .max(100_000, { message: "Maximum amount 100_000" }),
+  categories: z.enum(categories, {
+    errorMap: () => ({ message: "Category is required" }),
+  }),
 });
 
 // alternative structure with zod
@@ -67,7 +71,7 @@ const Form = () => {
             Categories
           </label>
           <select className="form-select" aria-label="Default select example">
-            <option selected>All Categories</option>
+            <option selected></option>
             {categories.map((category) => (
               <option key={category} value={category}>
                 {category}
@@ -75,9 +79,7 @@ const Form = () => {
             ))}
           </select>
         </div>
-        <button disabled={!isValid} className="btn btn-primary">
-          Submit
-        </button>
+        <button className="btn btn-primary">Submit</button>
       </form>
     </>
   );

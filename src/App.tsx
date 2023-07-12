@@ -3,8 +3,7 @@ import { useState } from "react";
 import ExpenseList from "./components/ExpenseList";
 import ExpenseFilter from "./components/ExpenseFilter";
 import ExpenseForm from "./components/ExpenseForm";
-
-export const categories = ["Groceries", "Utilities", "Entertainment"];
+import categories from "./categories";
 
 function App() {
   // Utilities, Groceries, Enterteiments;
@@ -46,6 +45,8 @@ function App() {
   const onSelectCategory = (category: string) => {
     setCategory(category);
   };
+
+  const onCreate = (id: number) => {};
 
   const visibleExpenses = category
     ? expenses.filter((exp) => exp.category === category)
