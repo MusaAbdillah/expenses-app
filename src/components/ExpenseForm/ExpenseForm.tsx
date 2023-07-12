@@ -28,6 +28,7 @@ const Form = ({ onSubmit }: FormProps) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isValid }, //destructure
   } = useForm<FormData>({ resolver: zodResolver(schema) });
   console.log(errors);
@@ -39,7 +40,12 @@ const Form = ({ onSubmit }: FormProps) => {
 
   return (
     <>
-      <form onSubmit={() => onSubmit}>
+      <form
+        onSubmit={handleSubmit((data) => {
+          onSubmit(data);
+          reset;
+        })}
+      >
         <div className="mb-3">
           <label htmlFor="description" className="form-label">
             Description
@@ -74,7 +80,11 @@ const Form = ({ onSubmit }: FormProps) => {
           <label htmlFor="category" className="form-label">
             Categories
           </label>
-          <select className="form-select" aria-label="Default select example">
+          <select
+            {...register("category")}
+            className="form-select"
+            aria-label="Default select example"
+          >
             <option value=""></option>
             {categories.map((category) => (
               <option key={category} value={category}>
