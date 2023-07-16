@@ -63,7 +63,7 @@ const Form = ({ onSubmit }: FormProps) => {
         </div>
         <div className="mb-3">
           <label htmlFor="amount" className="form-label">
-            Age
+            Amount
           </label>
           <input
             // with react hook form
